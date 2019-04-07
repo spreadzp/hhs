@@ -1,0 +1,9 @@
+node_modules/
+python/lib/
+release/python/lib/
+release/linux-unpacked/
+build/
+dist/
+python/proxy/aliceKey
+python/proxy/doctor_private_key
+python/proxy/mydata
