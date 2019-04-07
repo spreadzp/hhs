@@ -1,7 +1,7 @@
 import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-let { PythonShell } = require('python-shell');
+const { PythonShell } = require('python-shell');
 const pathPyLib = process.cwd() + '/python/proxy/';
 console.log('normalization : ' + pathPyLib);
 const options = {
@@ -9,7 +9,7 @@ const options = {
   pythonPath: '/usr/bin/python3',
   pythonOptions: ['-u'], // get print results in real-time
   scriptPath: pathPyLib,
-  args: ""
+  args: ''
 };
 let win, serve;
 const args = process.argv.slice(1);
@@ -21,7 +21,7 @@ function callPythonFile(fileName, param, responseName, eventItem) {
     if (err) throw err;
     console.log('results :', results);
     eventItem.sender.send(responseName, results);
-  })
+  });
 }
 
 function createWindow() {
@@ -41,41 +41,32 @@ function createWindow() {
   });
 
   if (serve) {
-
-
     ipcMain.on('asynchronous-message', (event, arg) => {
-      console.log(arg) // prints "ping"
-      callPythonFile('rekey.py', "!!!!", 'asynchronous-reply', event);
+      callPythonFile('rekey.py', '', 'asynchronous-reply', event);
       // event.sender.send('asynchronous-reply', results);
-    })
+    });
 
     ipcMain.on('get-keys-for-rekey', (event, arg) => {
-      console.log(arg) // prints "ping"
-      callPythonFile(arg, "!!!!", 'response-keys', event);
-      // event.sender.send('asynchronous-reply', results);
-    })
+      callPythonFile(arg, '', 'response-keys', event);
+    });
 
     ipcMain.on('send-re-capsule', (event, args) => {
-      console.log(args[0]) // prints "ping"
       console.log('hexCapsule :', args[1]);
       callPythonFile(args[0], args[1], 'response-capsule', event);
-      // event.sender.send('asynchronous-reply', results);
-    })
+    });
+
     ipcMain.on('create-enc-capsule', (event, publicBobKey) => {
       console.log(publicBobKey); // prints "ping"
       event.sender.send('asynchronous-reply', publicBobKey);
-    })
+    });
+
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
+
     win.loadURL('http://localhost:4200');
     win.webContents.openDevTools();
   } else {
-    /*  PythonShell.run('rekey.py',options, function (err: any, results: any) {
-       if (err) throw err;
-       console.log('hello.py finished.');
-       console.log('results', results);
-     }); */
     win.loadURL(url.format({
       pathname: path.join(__dirname, 'dist/index.html'),
       protocol: 'file:',
@@ -83,14 +74,8 @@ function createWindow() {
     }));
   }
   ipcMain.on('synchronous-message', (event, arg) => {
-    console.log(arg) // prints "ping"
-    event.returnValue = 'pong'
-  })
-
-
-  /* if (serve) {
-    win.webContents.openDevTools();
-  } */
+    event.returnValue = 'pong';
+  });
 
   // Emitted when the window is closed.
   win.on('closed', () => {

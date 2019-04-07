@@ -123,11 +123,12 @@ export class PatientDataComponent implements OnInit {
           console.log('this.tokenReKey :', this.tokenReKey);
           const args = ['doctorDecrypt.py', this.tokenReKey];
           this.electronService.ipcRenderer.send('send-re-capsule', args);
-          // send token to smartContract
+          //  send token to smartContract
         });
     });
     this.electronService.ipcRenderer.on('response-capsule', (event, capsuleResponse) => {
       console.log('capsuleResponse :', capsuleResponse);
+      this.setStatus(capsuleResponse);
     });
   }
 

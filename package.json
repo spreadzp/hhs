@@ -38,7 +38,7 @@
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "pyth3-set": "alias python=/usr/bin/python3 && alias pip=pip3 && python -V && pip -V && apt-get install curl && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py --force-reinstall",
     "pyth-env": "pip install virtualenv && virtualenv my_py3 --python=/usr/bin/python3",
-    "umbral": "pip install -t python/lib umbral",
+    "umbral": "pip install -t python/lib umbral==0.1.3-alpha.1",
     "gan": "ganache-cli",
     "cm": "rm -rf ./build && truffle compile && truffle migrate --reset",
     "tt": "truffle test"

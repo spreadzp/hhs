@@ -14,11 +14,11 @@ def make_rekey () :
     alices_signing_key = keys.UmbralPrivateKey.gen_key()
     alices_verifying_key = alices_signing_key.get_pubkey()
     alices_signer = signing.Signer(private_key=alices_signing_key)
-    pprint(alices_private_key)
+    #pprint(alices_private_key)
     print(alices_public_key)
-    pprint(alices_signing_key)
+    #pprint(alices_signing_key)
     print(alices_verifying_key)
-    pprint(alices_signer) 
+    #pprint(alices_signer) 
     print("--------") 
 
     #3
@@ -66,10 +66,10 @@ def make_rekey () :
     #6
     # Bob receives a capsule through a side channel (s3, ipfs, Google cloud, etc)
     bob_capsule = capsule
-    print("Bob")
-    print(bobs_private_key)
-    print(bobs_public_key)
-    print(bob_capsule)
+    #print("Bob")
+    #print(bobs_private_key)
+    #print(bobs_public_key)
+    #print(bob_capsule)
 
     #7
     # Attempt Bob's decryption (fail)
@@ -95,8 +95,8 @@ def make_rekey () :
                                 threshold=10,
                                 N=20)
 
-    print(" Alice grants access to Bob by generating kfrags")
-    print(kfrags)                                
+    #print(" Alice grants access to Bob by generating kfrags")
+    #print(kfrags)                                
     return kfrags
 
 make_rekey()

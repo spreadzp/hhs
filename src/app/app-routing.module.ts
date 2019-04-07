@@ -11,13 +11,14 @@ import { PatientDataComponent } from './components/patient-data/patient-data.com
 const routes: Routes = [
     { path: '', redirectTo: '/meta', pathMatch: 'full' },
     { path: 'meta', component: MetaSenderComponent },
-    { path: 'recomdations', component: RecomendationsComponent },
+    { path: 'home', component: HomeComponent },
+    { path: 'recomendations', component: RecomendationsComponent },
     { path: 'reports', component: ReportsComponent },
     { path: 'sensors', component: SensorsComponent },
     { path: 'doc-board', component: DocBoardComponent },
     { path: 'patient-data', component: PatientDataComponent},
-    { path: '**', redirectTo: '/meta'}
-  
+    { path: '**', redirectTo: '/home'}
+
   ];
 
 @NgModule({

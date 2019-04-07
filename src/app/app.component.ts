@@ -16,15 +16,6 @@ export class AppComponent {
     console.log('AppConfig', AppConfig);
 
     if (electronService.isElectron()) {
-      console.log('Mode electron');
-      console.log('Electron ipcRenderer', electronService.ipcRenderer);
-      console.log('NodeJS childProcess', electronService.childProcess);
-      console.log(electronService.ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
-
-      /* electronService.ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        console.log(arg) // prints "pong"
-      })
-      electronService.ipcRenderer.send('asynchronous-message', 'ping') */
     } else {
       console.log('Mode web');
     }

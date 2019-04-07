@@ -3,7 +3,7 @@ import {Web3Service} from './../../../providers/web3.service';
 import { MatSnackBar } from '@angular/material';
 
 declare let require: any;
-const metacoin_artifacts = require('./../../../../../build/contracts/MetaCoin.json');
+const metacoin_artifacts = require('./../../../../../build/contracts/HhsCoin.json');
 
 @Component({
   selector: 'app-meta-sender',

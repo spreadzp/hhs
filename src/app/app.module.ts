@@ -58,7 +58,7 @@ const modules = [
   BrowserModule,
   AppRoutingModule,
   ProvidersModule,
-  MetaModule,  
+  MetaModule,
   TranslateModule.forRoot({
     loader: {
         provide: TranslateLoader,

@@ -21,7 +21,7 @@ const doctor_board_artifacts = require('./../../../../build/contracts/DoctorBoar
 export class TableDataComponent implements AfterViewInit {
   displayedColumns: string[] = ['created', 'state', 'number', 'title'];
   exampleDatabase: ExampleHttpDatabase | null;
-  data: GithubIssue[] = [];
+  data: DoctorIssue[] = [];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -58,9 +58,9 @@ export class TableDataComponent implements AfterViewInit {
         this.DoctorBoard = DoctorBoardAbstraction;
         this.DoctorBoard.deployed().then(deployed => {
           console.log(deployed);
-         /*  deployed.Transfer({}, (err, ev) => {
-            console.log('Transfer event came in, refreshing balance');
-          }); */
+          /*  deployed.Transfer({}, (err, ev) => {
+             console.log('Transfer event came in, refreshing balance');
+           }); */
         });
 
       });
@@ -77,6 +77,7 @@ export class TableDataComponent implements AfterViewInit {
         }),
         map((data: any) => {
           // Flip flag to show that loading has finished.
+          console.log('data  :', data);
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
           this.resultsLength = data.total_count;
@@ -98,25 +99,17 @@ export class TableDataComponent implements AfterViewInit {
 
   async selectRow(row) {
     const docBoard = await this.DoctorBoard.deployed();
-    console.log('row.html_url :', row.html_url);
     const token = 'TOKEN123456789';
     const url32 = this.web3Service.stringToBytes32(token);
-    console.log('url32', url32);
-    const pastLengthUrl = (url32.length < 66)? 66 - url32.length : 0;
-    console.log('pastLengthUrl :', pastLengthUrl);
+    const pastLengthUrl = (url32.length < 66) ? 66 - url32.length : 0;
     const url321 = url32 + '0'.repeat(pastLengthUrl);
-    console.log('url321 ', url321.length, url321);
     try {
       const transaction = await docBoard.toBytes32(token);
-      console.log('transaction:', transaction);
       const transaction1 = await docBoard.checkHashOrder(url321);
-      console.log('transaction1:', transaction1);
       const deshif32 = this.web3Service.bytes32ToString(transaction1);
-      console.log('deshif32 :', deshif32);
-      console.log('deshif32:', deshif32);
-      const logOrder = await docBoard.checkOrder(token, {from: this.web3Service.getAccount(0)});
-      console.log('logOrder :', logOrder);
-      console.log('.logsargs._urlFile :', logOrder.logs['0'].args._urlFile);
+      // const logOrder = await docBoard.checkOrder(token, {from: this.web3Service.getAccount(0)});
+      //console.log('logOrder :', logOrder);
+      //console.log('.logsargs._urlFile :', logOrder.logs['0'].args._urlFile);
       if (!transaction) {
         this.setStatus('Transaction failed!');
       } else {
@@ -129,7 +122,7 @@ export class TableDataComponent implements AfterViewInit {
     console.log(row.html_url);
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '250px',
-      data: { name: this.name, animal: this.animal }
+      data: { name: token, animal: row.title }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -139,12 +132,12 @@ export class TableDataComponent implements AfterViewInit {
   }
 }
 
-export interface GithubApi {
-  items: GithubIssue[];
+export interface DoctorApi {
+  items: DoctorIssue[];
   total_count: number;
 }
 
-export interface GithubIssue {
+export interface DoctorIssue {
   created_at: string;
   number: string;
   state: string;
@@ -155,12 +148,10 @@ export interface GithubIssue {
 export class ExampleHttpDatabase {
   constructor(private http: HttpClient) { }
 
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
-    const requestUrl =
-      `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
+  getRepoIssues(sort: string, order: string, page: number): Observable<DoctorApi> {
+    const requestUrl = 'https://nuserver.appspot.com/doctors-board';
 
-    return this.http.get<GithubApi>(requestUrl);
+    return this.http.get<DoctorApi>(requestUrl);
   }
 }
 

@@ -11,7 +11,7 @@ var options = {
     pythonPath: '/usr/bin/python3',
     pythonOptions: ['-u'],
     scriptPath: pathPyLib,
-    args: ""
+    args: ''
 };
 var win, serve;
 var args = process.argv.slice(1);
@@ -40,20 +40,15 @@ function createWindow() {
     });
     if (serve) {
         electron_1.ipcMain.on('asynchronous-message', function (event, arg) {
-            console.log(arg); // prints "ping"
-            callPythonFile('rekey.py', "!!!!", 'asynchronous-reply', event);
+            callPythonFile('rekey.py', '', 'asynchronous-reply', event);
             // event.sender.send('asynchronous-reply', results);
         });
         electron_1.ipcMain.on('get-keys-for-rekey', function (event, arg) {
-            console.log(arg); // prints "ping"
-            callPythonFile(arg, "!!!!", 'response-keys', event);
-            // event.sender.send('asynchronous-reply', results);
+            callPythonFile(arg, '', 'response-keys', event);
         });
         electron_1.ipcMain.on('send-re-capsule', function (event, args) {
-            console.log(args[0]); // prints "ping"
             console.log('hexCapsule :', args[1]);
             callPythonFile(args[0], args[1], 'response-capsule', event);
-            // event.sender.send('asynchronous-reply', results);
         });
         electron_1.ipcMain.on('create-enc-capsule', function (event, publicBobKey) {
             console.log(publicBobKey); // prints "ping"
@@ -66,11 +61,6 @@ function createWindow() {
         win.webContents.openDevTools();
     }
     else {
-        /*  PythonShell.run('rekey.py',options, function (err: any, results: any) {
-           if (err) throw err;
-           console.log('hello.py finished.');
-           console.log('results', results);
-         }); */
         win.loadURL(url.format({
             pathname: path.join(__dirname, 'dist/index.html'),
             protocol: 'file:',
@@ -78,12 +68,8 @@ function createWindow() {
         }));
     }
     electron_1.ipcMain.on('synchronous-message', function (event, arg) {
-        console.log(arg); // prints "ping"
         event.returnValue = 'pong';
     });
-    /* if (serve) {
-      win.webContents.openDevTools();
-    } */
     // Emitted when the window is closed.
     win.on('closed', function () {
         // Dereference the window object, usually you would store window
