@@ -26,7 +26,7 @@ export class TableDataComponent implements AfterViewInit {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  animal: string;
+  doctorTitle: string;
   name: string;
   DoctorBoard: any;
 
@@ -42,13 +42,7 @@ export class TableDataComponent implements AfterViewInit {
     if (this.electronService.isElectron()) {
       console.log('Mode electron');
       console.log('Electron ipcRenderer', this.electronService.ipcRenderer);
-      console.log('NodeJS childProcess', this.electronService.childProcess);
-      console.log(this.electronService.ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
-
-      this.electronService.ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        console.log(arg) // prints "pong"
-      })
-      this.electronService.ipcRenderer.send('asynchronous-message', 'ping')
+      console.log('NodeJS childProcess', this.electronService.childProcess);       
     } else {
       console.log('Mode web');
     }
@@ -94,7 +88,7 @@ export class TableDataComponent implements AfterViewInit {
   }
 
   setStatus(status) {
-    this.matSnackBar.open(status, null, { duration: 3000 });
+    this.matSnackBar.open(status, null, { duration: 4000 });
   }
 
   async selectRow(row) {
@@ -122,12 +116,11 @@ export class TableDataComponent implements AfterViewInit {
     console.log(row.html_url);
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '250px',
-      data: { name: token, animal: row.title }
+      data: { name: token, doctorTitle: row.title }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+    dialogRef.afterClosed().subscribe(result => { 
+      this.doctorTitle = result;
     });
   }
 }

@@ -23,7 +23,7 @@ export class RecomendationsComponent implements OnInit {
       .subscribe((data: any) => {
         this.encryptedCapsule = data.encrypted_result;
         this.sendToPythonEncrypdedCapsule('@@@Public Key');
-      })
+      });
   }
 
   sendToPythonEncrypdedCapsule(capsule: string) {
@@ -31,7 +31,7 @@ export class RecomendationsComponent implements OnInit {
     this.electronService.ipcRenderer.on('asynchronous-reply', (event, arg) => {
       this.rekey = arg;
       // console.log('this.rekey :', this.rekey);
-    })
+    });
   }
 
   parseResponse(response: string[]) {

@@ -1,5 +1,6 @@
+# Home Health System
 
-# Introduction 
+## Introduction 
 
 Currently runs with:
 
@@ -18,38 +19,39 @@ With this sample, you can :
 Clone this repository locally :
 
 ``` bash
-git clone https://github.com/spreadzp/health-system.git
+git clone https://github.com/spreadzp/hhs.git
 ```
 
 Install dependencies with npm :
 
 ``` bash
 npm install
+npm run umbral  -> for install umbral
 ``` 
 
 There is an issue with `yarn` and `node_modules` that are only used in electron on the backend when the application is built by the packager. Please use `npm` as dependencies manager.
-
-
-
-If you want to generate Angular components with Angular-cli , you **MUST** install `@angular/cli` in npm global context.
-Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed a previous version of `angular-cli`.
-
-``` bash
-npm install -g @angular/cli
-```
+ 
 
 ## To develop locally you must have installed globally ganache-cli and truffle
 
 ```bash
+npm install -g @angular/cli
 npm install -g ganache-cli
 npm install -g truffle
 ```
 
 ## To build for development
 
-- **in a terminal window** -> npm start
+- **in a terminal window** ->
+```
+npm run gan -> start ganache
+```
+- **open a new terminal and run** ->
+```
+npm run cm  -> deploy smart contracts
+npm start   -> start the app
+```
 
-Voila! You can use your Angular + Electron app in a local development environment with hot reload !
 
 The application code is managed by `main.ts`. In this sample, the app runs with a simple Angular App (http://localhost:4200) and an Electron window.
 The Angular component contains an example of Electron and NodeJS native lib import.
@@ -66,3 +68,16 @@ You can disable "Developer Tools" by commenting `win.webContents.openDevTools();
 |`npm run electron:linux`| Builds your application and creates an app consumable on linux system |
 |`npm run electron:windows`| On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems |
 |`npm run electron:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac |
+
+## Description Home Health System
+```
+https://www.youtube.com/watch?v=gPpe5doN56Y&feature=youtu.be
+https://docs.google.com/document/d/1UFQPFzEGTEltoD_fxsvMTxiCIEJTOrZ6zkhV6n6Ngp0/edit?usp=sharing
+```
+
+The desktop app using for doctor and patient.
+
+Re-encription of the patient data is making on server https://nuserver.appspot.com
+```
+https://github.com/spreadzp/cloud-kms.git
+``` 
